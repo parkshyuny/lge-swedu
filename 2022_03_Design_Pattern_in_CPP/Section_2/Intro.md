@@ -5,7 +5,7 @@
 
 > 변하지 않는 코드 안에 변해야 하는 부분이 있다면 분리 하는 것이 좋다.
 
-
+#### Problem 1: 멤버 함수
 ```
 class Edit {
   string data;
@@ -24,7 +24,6 @@ class Edit {
 }
 ```
 
-#### Problem
 만약 위 코드가 하나의 library라면 입력 값의 validation(정책)을 유연하게 변경할 수 있도록 해야 한다.<br/>
 그렇지 않으면 입력 값의 유연성이 바뀔 때마다 `getData()`를 변경시켜야 한다. 
 ```
@@ -115,3 +114,25 @@ int main() {
   edit.setValidator(&v); // 어떤 정책을 사용할 것인가?
 }
 ```
+
+#### Problem 2: 일반 함수
+
+```
+void Sort(int* arr, bool(*cmp)(int, int)) {
+  ...
+  if (cmp(x[i], x[j]) { // Ascending or descending order?
+    swap(x[i], x[j]);
+  }
+  ...
+}
+
+bool cmp1(int a, int b) { ... }
+bool cmp2(int a, int b) { ... }
+
+int main() {
+  (1) Sort(x, [](int a, int b){ ...} ); // Lambda 함수
+  (2) Sort(x, &cmp1);
+}
+```
+
+일반 함수 내에서 변하는 정책이 있다면, 함수 포인터의 인자로 받게 한다.
