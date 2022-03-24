@@ -66,11 +66,8 @@ template<typename T> class List {
 
 ### 2. Policy Base
 
-#### Inline function
-
-- 자주 호출되고 작은 함수일 경우, 호출하는데 소요되는(예: 소스코드 및 인자 값 저장) 시간 > 실행 시간
-- Compile 시, 이런 함수의 소스코드 전체를 아예 주소 값 대신 삽입 "inline"
-- Virtual 함수 대신 inline 함수 사용하면 성능 개선 시킬 수 있다
+- `template` 인자로 정책 클래스를 분리 시키는 기술이며, C++ 라이브러리에서 많이 볼 수 있는 기술이다. 
+- Template method처럼 실행시간에 정책 교체 불가하다.
 
 ```
 template<typename T, typename ThreadModel = NoLock> class List {
@@ -101,6 +98,8 @@ class NoLock {
 
 List<int, MutexLock> s;
 ```
+#### Inline function
 
-이와 같이 `template` 인자로 정책 클래스를 분리 시키는 기술이며, C++ 라이브러리에서 많이 볼 수 있는 기술이다.<br/>
-Template method처럼 실행시간에 정책 교체 불가하다.
+- 자주 호출되고 작은 함수일 경우, 호출하는데 소요되는(예: 소스코드 및 인자 값 저장) 시간 > 실행 시간
+- Compile 시, 이런 함수의 소스코드 전체를 아예 주소 값 대신 삽입 "inline"
+- Virtual 함수 대신 inline 함수 사용하면 성능 개선 시킬 수 있다
