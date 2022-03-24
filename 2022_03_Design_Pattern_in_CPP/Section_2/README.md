@@ -1,7 +1,7 @@
 ## Section 2: "공통성과 가변성의 분리"
 03/24/2022
 
-### 1. Introduction
+### Introduction
 
 > 변하지 않는 코드 안에 변해야 하는 부분이 있다면 분리 하는 것이 좋다.
 
@@ -51,8 +51,9 @@ string getData() {
    }
 }
 ```
-여기서 `validate()`에서는 기본적인 정책이 정의되어 있다. 정책을 바꾸게 되면 이 코드를 변경하지 않아도, Edit 클래스의 자녀 클래스를 만들어서 `validate()`를 재정의 가능하다.
-따라서 Edit 클래스는 변하지 않는 "template"이 된다.
+여기서 `validate()`를 포함해 기본적인 정책이 정의되어 있다. 정책을 바꾸게 되면 이 코드를 변경하지 않아도, Edit 클래스의 자녀 클래스를 만들어서 `validate()`를 재정의 가능하다. 따라서 Edit 클래스는 변하지 않는 "template"이 된다.<br/>
+장점:
+- 기본적인 구현이 만들어져 있는 상태이고, 자녀 클래스가 일부 재정의만 하면 된다.
 
 ```
 class AddressEdit: public Edit
@@ -93,11 +94,24 @@ class Edit
     }
 }
 ```
-정책을 바꾸게 되면 이 코드를 변경하지 않아도, 인터페이스를 구현한 클래스로 `validate()`를 재정의 가능하다.
+정책을 바꾸게 되면 이 코드를 변경하지 않아도, 인터페이스를 구현한 클래스로 `validate()`를 재정의 가능하다.<br/>
+장점:
+- Encapsulation
+- 실행 시간에 정책을 변경할 수 있다.
+```
+class LimitDigitValidator : public IValidator
+{
+  int value;
+  public:
+    LimitDigitValidator(int n) : value(n) { ...}
+    ...
+}
 
-### 2. "Policy Base" Design
-
-Note on C++ Syntax
-
-- if 문에서 첫번째 operand가 true 여야 두번째 실행된다.
-- 인터페이스 정의 시, 반드시 virtual deconstructor가 구현되어 있어야 한다.
+int main() {
+  Edit edit;
+  LimitDigitValidator v(5);
+  LimitDigitValidator v(10);
+  
+  edit.setValidator(&v); // 어떤 정책을 사용할 것인가?
+}
+```
