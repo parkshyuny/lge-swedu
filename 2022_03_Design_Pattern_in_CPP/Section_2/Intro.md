@@ -3,9 +3,10 @@
 
 ### Introduction
 
+#### Problem 1: 멤버 함수
+
 > 변하지 않는 코드 안에 변해야 하는 부분이 있다면 분리 하는 것이 좋다.
 
-#### Problem 1: 멤버 함수
 ```
 class Edit {
   string data;
