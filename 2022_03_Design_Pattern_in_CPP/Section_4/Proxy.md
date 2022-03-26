@@ -49,7 +49,7 @@ int main() {
 ```
 Server 요청을 좀 더 간결하게 만들 수 없을까?
 
-#### Proxy Pattern
+#### Introduction
 
 ```
 class CalcProxy {
