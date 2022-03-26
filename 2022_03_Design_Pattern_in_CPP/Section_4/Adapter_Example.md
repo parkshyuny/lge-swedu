@@ -2,8 +2,6 @@
 
 List의 인터페이스를 stack처럼 보이도록 변경해보자.
 
-#### Type 1: Class Adapter
-
 ```
 #include <list>
 
@@ -29,13 +27,13 @@ int main() {
 }
 ```
 
-#### Type 2: Object Adapter
+상속하지 않는 방법도 있다 (주의: Object adapter가 아님)
 
 ```
 #include <list>
 
 template<typename T> class Stack {
-  list<T> st;
+  list<T> st; // 포인터가 아니다
   public:
     void push(const T& a) {
       st.push_back(a);
