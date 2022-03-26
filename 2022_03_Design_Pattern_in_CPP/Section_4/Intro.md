@@ -1,7 +1,7 @@
-## Adapter Pattern
+## Section 4: 간접층의 원리
 03/26/2022
 
-### Introduction
+### Adapter Pattern
 
 > Adaption / Wrapping
 > 
