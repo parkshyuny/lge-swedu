@@ -79,7 +79,7 @@ int main() {
 ### Bridge Pattern
 
 > 구현과 추상화 개념을 분리해서 각각 독립적으로 변형할 수 있게 한다.<br/>
-> -**업데이트**에 많이 사용되는 패턴이다.
+> - **업데이트**에 많이 사용되는 패턴이다.
 
 <p align="center">
   <img width="322" alt="Screen Shot 2022-03-26 at 6 36 48 PM" src="https://user-images.githubusercontent.com/100692678/160233733-a882de19-92c8-440a-b9c1-03a7f8e03cbe.png">
