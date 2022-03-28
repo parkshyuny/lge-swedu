@@ -70,3 +70,8 @@ class BaseBallGame {
       printf("--------------------------------\n");
     }
 };
+
+int main(void) {
+    BaseBallGame bbg;
+    bbg.run();
+}
