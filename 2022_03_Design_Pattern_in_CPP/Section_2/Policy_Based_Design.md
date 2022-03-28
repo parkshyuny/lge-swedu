@@ -1,4 +1,4 @@
-## "Policy Base" Design
+## "Policy Based" Design
 
 ```
 template<typename T> class List {
@@ -64,7 +64,7 @@ template<typename T> class List {
 
 그런데, virtual 함수는 일반 함수보다 오버헤드가 있다고 한다. 그렇다면 여기서 좀 더 성능을 발전시킬 수 있을까?
 
-### 2. Policy Base
+### 2. Policy Based
 
 - `template` 인자로 정책 클래스를 분리 시키는 기술이며, C++ 라이브러리에서 많이 볼 수 있는 기술이다. 
 - Template method처럼 실행시간에 정책 교체 불가하다.
