@@ -1,3 +1,5 @@
+#include <string>
+
 class Entity {
   string fname;
   public:
@@ -8,16 +10,25 @@ class Entity {
   
 class Folder : public Entity {
   vector<Entity*> v;
+  
   public:
     Folder(string name): Entity(name) {}
     void add(Entity* p) {
       v.push_back(p);
     }
     virtual int getSize() {
-      //TODO
+      int total = 0;
+      for (auto& element : v) {
+        total += element->getSize();
+      }
+      return total;
     }
     virtual void print() {
-      //TODO
+      cout << "[ " << fname << "]" << endl;
+      for(auto& element : v) {
+        cout << "\t";
+        cout << element->print(); << endl;
+      }
     }
 }
 
