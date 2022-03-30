@@ -41,7 +41,7 @@ class Table {
 ##### 2.1 Interface
 
 ```
-class SingleList {
+class SList {
   Node* head = 0;
   public:
     void push_front(Object* n) {
@@ -53,7 +53,7 @@ class SingleList {
 ##### 2.2 Template
 
 ```
-template<typename T> class SingleList {
+template<typename T> class SList {
   Node<T>* head = 0;
   public:
     void push_front(const T& n) {
@@ -64,13 +64,12 @@ template<typename T> class SingleList {
 
 #### 3. Iterator / Enumerator Pattern
 
-> 필요한 자료구조를 모두 동일한 인터페이스를 통해 loop 할 수 있도록 한다.
-> - 핵심 요소: 반복자(인터페이스), 반복자 구현
-> - 예를 들어, Linked List(포인터)와 array(+1)는 다른 방법으로 접근해야 한다.<br/>
-> - 반복자 함수:
+> 필요한 자료구조를 모두 동일한 인터페이스를 통해 loop 할 수 있도록 한다.<br/>
+> 핵심 인터페이스:
+> - `Enumerator`: 반복자
+> - `Enumerable`: Enumerator를 가져오는 함수(예: `GetEnumerator()`)
 >   1. `GetObject()`: 가리키는 곳의 요소 접근 
 >   2. `MoveNext()` : 다음 요소로 이동
->   3. 
 
 ##### Example
 
@@ -81,13 +80,36 @@ template<typename T> class IEnumerator { // 반복자
   virtual T& GetObject() = 0;
 }
 
-template<typename T> class SingleList {
+template<typename T> class IEnumerable { // 반복자를 가져오는
+  virtual ~IEnumerable() {}
+  virtual IEnumerator<T>* GetEnumerator() = 0;
+}
+
+template<typename T> class SListEnumerator : public IEnumerator<T> {
   Node<T>* current = 0;
-  virtual bool MoveNext() {
+  public:
+    SListEnumerator(Node<T>* p) : current(p) {}
+    virtual bool MoveNext() {
+      ...
+    }
+    virtual T& GetObject() {
+      ...
+    }
+}
+
+template<typename T> class SList : public IEnumerable<T> {
+  ...
+  virtual IEnumerator<T>* GetEnumerator() {
+    return new SListEnumerator<T>(head);
   }
-  virtual T& GetObject() {
-    
-  }
+}
+
+int main() {
+  SList<int> s;
+  s.push_front(10);
+  s.push_front(20);
+  
+  SListEnumerator<int>* enumerator = s.GetEnumerator();
 ```
 
 #### 4. Visitor Pattern
