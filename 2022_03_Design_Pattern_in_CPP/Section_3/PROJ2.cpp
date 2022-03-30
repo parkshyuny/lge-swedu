@@ -30,11 +30,13 @@ class Folder : public Entity {
         cout << element->print(); << endl;
       }
     }
+    ~Folder() {}
 }
 
 class File : public Entity {
   int fsize;
   public:
+    ~File() {}
     File(int size, string name): fsize(size), Entity(name) {}
     virtual int getSize() {
       return fsize;
