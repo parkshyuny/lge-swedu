@@ -1,21 +1,27 @@
 #include <string>
+#include <iostream>
+#include <vector>
+using namespace std;
 
-class Entity {
+struct Entity {
   string fname;
   public:
     Entity(string name): fname(name) {}
+    virtual ~Entity() {}
     virtual int getSize() = 0;
     virtual void print() = 0;
-}
+};
   
 class Folder : public Entity {
   vector<Entity*> v;
   
   public:
     Folder(string name): Entity(name) {}
+  
     void add(Entity* p) {
       v.push_back(p);
     }
+  
     virtual int getSize() {
       int total = 0;
       for (auto& element : v) {
@@ -23,28 +29,29 @@ class Folder : public Entity {
       }
       return total;
     }
+  
     virtual void print() {
       cout << "[ " << fname << "]" << endl;
       for(auto& element : v) {
         cout << "\t";
-        cout << element->print(); << endl;
+        element->print();
       }
     }
-    ~Folder() {}
-}
+};
 
 class File : public Entity {
   int fsize;
   public:
-    ~File() {}
-    File(int size, string name): fsize(size), Entity(name) {}
+    File(string name, int size): fsize(size), Entity(name) {}
+  
     virtual int getSize() {
       return fsize;
     }
+  
     virtual void print() {
       cout << "(" << fname << ", " << fsize << ")" << endl;
     }
-}
+};
 
 int main() {
   Folder* rootFolder = new Folder("ROOT");
@@ -60,10 +67,15 @@ int main() {
   rootFolder->add(bbbbFolder);
   rootFolder->add(file1);
   
+  aaaaFolder->add(file2);
+  aaaaFolder->add(file3);
+  
+  bbbbFolder->add(file4);
+  
   cout << file1->getSize()      << endl;
   cout << aaaaFolder->getSize() << endl;
   cout << rootFolder->getSize() << endl;
   
   file1->print();
-  file2->print();
+  rootFolder->print();
 }
