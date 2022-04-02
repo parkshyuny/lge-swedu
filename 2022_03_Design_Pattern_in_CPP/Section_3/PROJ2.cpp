@@ -1,6 +1,6 @@
 #include <string>
 #include <iostream>
-#include <vector>
+#include <list>
 using namespace std;
 
 struct Entity {
@@ -13,27 +13,31 @@ struct Entity {
 };
   
 class Folder : public Entity {
-  vector<Entity*> v;
+  list<Entity*> lst;
   
   public:
     Folder(string name): Entity(name) {}
+    /*~Folder() {
+        delete lst;    
+    }*/
   
     void add(Entity* p) {
-      v.push_back(p);
+      lst.push_back(p);
     }
   
     virtual int getSize() {
       int total = 0;
-      for (auto& element : v) {
+      for (auto& element : lst) {
         total += element->getSize();
       }
       return total;
     }
-  
+    
     virtual void print() {
-      cout << "[ " << fname << "]" << endl;
-      for(auto& element : v) {
-        cout << "\t";
+      cout << "[" << fname << "]" << endl;
+      
+      for (auto& element : lst) {
+        cout << " : ";
         element->print();
       }
     }
@@ -76,6 +80,6 @@ int main() {
   cout << aaaaFolder->getSize() << endl;
   cout << rootFolder->getSize() << endl;
   
-  file1->print();
+  //file1->print();
   rootFolder->print();
 }
