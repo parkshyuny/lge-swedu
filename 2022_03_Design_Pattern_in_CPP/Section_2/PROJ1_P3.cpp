@@ -14,7 +14,7 @@ template<typename Predictor> class BaseBallGame {
       while(1) {
         int x = 0, y = 0, z = 0;
         
-        int* predicted = predict(x, y, z);
+        int* predicted = predictor.predict(x, y, z);
         x = predicted[0];
         y = predicted[1];
         z = predicted[2];
