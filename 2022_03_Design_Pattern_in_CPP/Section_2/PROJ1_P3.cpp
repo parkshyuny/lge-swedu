@@ -1,8 +1,8 @@
-template<typename Predictor> class BaseBallGame {
+template<typename PredictModel = Predictor> class BaseBallGame {
   typedef tuple<int, int, int> INPUT;
   typedef tuple<int, int> RESULT;
   vector<pair<INPUT, RESULT> > v;
-  Predictor predictor; // Predictor contains a prediction algorithm
+  PredictorModel predictor; // Predictor contains a prediction algorithm
   
   public:
     BaseBallGame() {
